@@ -20,10 +20,33 @@
     }
 
 Проверить, чтобы все работало без ошибок в консоли */
+/* Задание на урок:
+
+1) Автоматизировать вопросы пользователю про фильмы при помощи цикла
+
+2) Сделать так, чтобы пользователь не мог оставить ответ в виде пустой строки,
+отменить ответ или ввести название фильма длинее, чем 50 символов. Если это происходит - 
+возвращаем пользователя к вопросам опять
+
+3) При помощи условий проверить  personalMovieDB.count, и если он меньше 10 - вывести сообщение
+"Просмотрено довольно мало фильмов", если от 10 до 30 - "Вы классический зритель", а если больше - 
+"Вы киноман". А если не подошло ни к одному варианту - "Произошла ошибка"
+
+4) Потренироваться и переписать цикл еще двумя способами*/
 
 'use strict';
 
 let numberOfFilms = +prompt('How many movies have you watched yet?', '');
+
+if (numberOfFilms <= 10 && numberOfFilms > 0) {
+    console.log('You have watched quite a few films');
+} else if (numberOfFilms > 10 && numberOfFilms <= 30 ) {
+    console.log('You are classic viewer');
+} else if (numberOfFilms > 30) {
+    console.log('You are movie fan');
+} else {
+    console.log('Oops, something going wrong!');
+}
 
 let personalMovieDB = {
     count: numberOfFilms,
@@ -34,14 +57,18 @@ let personalMovieDB = {
 };
 
 
-let lastMovie = prompt('One of your last watched movie', ''),
-    lastMovieMark = +prompt('Rate it from 0 to 10', ''),
-    lastMovie1 = prompt('One of your last watched movie', ''),
-    lastMovieMark1 = +prompt('Rate it from 0 to 10', '');
 
-personalMovieDB.movies[lastMovie] = lastMovieMark;
-personalMovieDB.movies[lastMovie1] = lastMovieMark1;
 
-console.log(personalMovieDB);
+for (let i = 0; i < 2; i++) {
+    let lastMovie  = prompt('One of your last watched movie', ''),
+        lastMovieMark = prompt('Rate it from 0 to 10', '');
+    if (lastMovie == '' || !lastMovie || lastMovie.length > 50 || lastMovieMark == '' || !lastMovieMark) {
+        i--;
+    } else {
+        personalMovieDB.movies[lastMovie] = lastMovieMark;
+    }
+    
+}
 
+console.log(personalMovieDB.movies);
 
